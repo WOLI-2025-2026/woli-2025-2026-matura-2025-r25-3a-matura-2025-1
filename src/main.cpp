@@ -1,4 +1,4 @@
-//imie i nazwisko
+//dawid szarwas
 
 #include <iostream>
 int main() {
