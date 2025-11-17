@@ -61,6 +61,7 @@ void zadanie2_2()
         return;
     }
 
+    string odp;
     vector<string> tekst;
     string linia;
     while(getline(plik, linia))
@@ -75,9 +76,9 @@ void zadanie2_2()
     int ilosc = 0;
 
 
-    for(int w = 0; w <= wiersze - 3; w++)
+    for(int w = 1; w <= wiersze - 3; w++)
     {
-        for(int k = 0; k <= kolumny - 3; k++)
+        for(int k = 1; k <= kolumny - 3; k++)
         {
             char symbol = tekst[w][k];
             bool czy_kwadrat = true;
@@ -98,9 +99,15 @@ void zadanie2_2()
                 cout << (w + 1) << " " << (k + 1) << " " ;
                 wynik << (w + 1) << " " << (k + 1) << " " ;
                 ilosc++;
+                odp = odp + to_string(w+1) + " " + to_string(k+1) + " ";
+
             }
         }
     }
+
+    odp = odp + ilosc + czy_kwadrat;
+    wynik << odp;
+
 
     plik.close();
     wynik.close();
