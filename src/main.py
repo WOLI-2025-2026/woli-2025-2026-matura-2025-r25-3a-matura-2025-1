@@ -1,62 +1,51 @@
-#!/usr/bin/env python3
-# Wczytuje plik z symbolami, znajduje wszystkie kwadraty 3x3 z identycznymi symbolami
-# i zapisuje wynik (liczba kwadratów oraz współrzędne środków) do pliku wynik_2_2.txt
+#dawid szarwas
 
-from pathlib import Path
+#zad 2.3
 
-INPUT = Path(__file__).resolve().parents[1] / "zalaczniki-2025" / "symbole.txt"
-OUTPUT = Path(__file__).resolve().parents[1] / "wynik_2_2.txt"
+lines = [line.strip() for line in open("/workspaces/matura-2025-r25-3a-szawarma/zalaczniki-2025/symbole.txt")]
+mapping = {"o": "0", "+": "1", "*": "2"}
 
+max_wartosc = 0
+max_symbole = ""
 
-def find_3x3_squares(lines):
-    """Zwraca listę par (row, col) - współrzędne środków kwadratów 3x3.
-    Współrzędne liczone od 1 (tak jak w zadaniu).
-    """
-    if not lines:
-        return []
-    n = len(lines)
-    m = len(lines[0])
-    centers = []
-    for i in range(n - 2):  # top row of 3x3
-        for j in range(m - 2):  # left col of 3x3
-            ch = lines[i][j]
-            ok = True
-            for di in range(3):
-                # szybkie skrócenie pętli porównując całe kawałki
-                if lines[i + di][j:j + 3] != ch * 3:
-                    ok = False
-                    break
-            if ok:
-                # center is (i+1, j+1) in 0-based -> +1 for 1-based center = i+2, j+2
-                centers.append((i + 2, j + 2))
-    return centers
+for s in lines:
+    liczba_trojkowy = ""
+    for ch in s:
+        liczba_trojkowy += mapping[ch]
+    
+    wartosc = int(liczba_trojkowy, 3)
 
+    if wartosc > max_wartosc:
+        max_wartosc = wartosc
+        max_symbole = s
 
-def main():
-    if not INPUT.exists():
-        print(f"Plik wejściowy nie istnieje: {INPUT}")
-        return
+#zad 2.4
 
-    with INPUT.open(encoding='utf-8') as f:
-        lines = [line.rstrip('\n') for line in f]
+suma = 0
 
-    centers = find_3x3_squares(lines)
+for s in lines:
+    liczba_trojkowy = ""
+    for ch in s:
+        liczba_trojkowy += mapping[ch]
 
-    # Format wyjścia: najpierw liczba kwadratów, potem pary (wiersz kolumna) środków.
-    # Wszystko w jednej linii rozdzielone spacjami (zgodnie z przykładem: "1 6 3").
-    parts = [str(len(centers))]
-    for r, c in centers:
-        parts.append(str(r))
-        parts.append(str(c))
-    out_line = " ".join(parts)
+    suma += int(liczba_trojkowy, 3)
 
-    # Zapis do pliku
-    with OUTPUT.open('w', encoding='utf-8') as fw:
-        fw.write(out_line + "\n")
+rev = {"0": "o", "1": "+", "2": "*"}
+suma_symbole = ""
 
-    # Wypisz też na stdout
-    print(out_line)
+if suma == 0:
+    suma_symbole = "o"
+else:
+    trzy = ""
+    value = suma
+    while value > 0:
+        trzy = str(value % 3) + trzy
+        value //= 3
+
+    for cyfra in trzy:
+        suma_symbole += rev[cyfra]
 
 
-if __name__ == '__main__':
-    main()
+with open("/workspaces/matura-2025-r25-3a-szawarma/src/wyniki2_3_4.txt", "w") as f:
+    f.write("2.3 " + str(max_wartosc) + " " + max_symbole + "\n")
+    f.write("2.4 " + str(suma) + " " + suma_symbole + "\n")

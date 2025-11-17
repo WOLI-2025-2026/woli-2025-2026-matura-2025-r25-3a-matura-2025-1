@@ -1,5 +1,5 @@
 //dawid szarwas
-
+/*
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,7 +8,7 @@ using namespace std;
 
 
 string z3_1_path_symbole_txt = "../zalaczniki-2025/symbole.txt";
-
+*/
 
 /*
 bool czy_palindrom(string slowo)
@@ -52,6 +52,8 @@ void zadanie2_1()
 }
 */
 
+
+/*
 void zadanie2_2()
 {
     ifstream plik(z3_1_path_symbole_txt);
@@ -61,7 +63,11 @@ void zadanie2_2()
         return;
     }
 
+<<<<<<< HEAD
     string odp;
+=======
+
+>>>>>>> 5561c7b (2_3/4)
     vector<string> tekst;
     string linia;
     while(getline(plik, linia))
@@ -69,23 +75,33 @@ void zadanie2_2()
         tekst.push_back(linia);
     }
 
+    plik.close();
+
     ofstream wynik("wynik_2_2.txt");
 
-    int wiersze = tekst.size() + 1;
-    int kolumny = (wiersze > 0) ? tekst[0].length() + 1 : 0;
-    int ilosc = 0;
+    int wiersze = tekst.size();
+    int ilosc = 0; 
+    string odp = "";
 
+<<<<<<< HEAD
 
     for(int w = 1; w <= wiersze - 3; w++)
     {
         for(int k = 1; k <= kolumny - 3; k++)
+=======
+    for(int w = 1; w < wiersze - 1; w++)
+    {
+        int kolumny = tekst[w].length();
+        for(int k = 1; k < kolumny - 1; k++)
+>>>>>>> 5561c7b (2_3/4)
         {
             char symbol = tekst[w][k];
+
             bool czy_kwadrat = true;
 
-            for(int i = 0; i < 3 && czy_kwadrat; i++)
+            for(int i = -1; i <= 1 && czy_kwadrat; i++)
             {
-                for(int j = 0; j < 3 && czy_kwadrat; j++)
+                for(int j = -1; j <= 1; j++)
                 {
                     if(tekst[w + i][k + j] != symbol)
                     {
@@ -96,26 +112,30 @@ void zadanie2_2()
 
             if(czy_kwadrat)
             {
-                cout << (w + 1) << " " << (k + 1) << " " ;
-                wynik << (w + 1) << " " << (k + 1) << " " ;
                 ilosc++;
                 odp = odp + to_string(w+1) + " " + to_string(k+1) + " ";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5561c7b (2_3/4)
             }
         }
     }
 
+<<<<<<< HEAD
     odp = odp + ilosc + czy_kwadrat;
     wynik << odp;
 
 
     plik.close();
+=======
+    string odpowiedz = to_string(ilosc) + " " + odp;
+    wynik << odpowiedz;
+    cout << odpowiedz;
+
+
+
+>>>>>>> 5561c7b (2_3/4)
     wynik.close();
 }
-
-
-int main() 
-{
-    zadanie2_2();
-    return 0;
-}
+*/
